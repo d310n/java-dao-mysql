@@ -9,5 +9,8 @@
         <module name="java-dao-mysql" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="pom.xml" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>
