@@ -11,10 +11,16 @@ public class Main {
 
         List<Player> players = new ArrayList<>();
 
+        String insert1 = "INSERT INTO player (FIRSTNAME, LASTNAME) VALUES ('Derrick', 'Rose');";
+        String insert2 = "INSERT INTO player (FIRSTNAME, LASTNAME) VALUES ('Carlos', 'Boozer');";
+
+
         String selectQuery = "SELECT * from player";
 
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/stats", "root", "slack");
-            PreparedStatement preparedStatement = conn.prepareStatement(selectQuery))
+            PreparedStatement insertStatement1 = conn.prepareStatement(insert1);
+            PreparedStatement insertStatement2 = conn.prepareStatement(insert2);
+            PreparedStatement selectStatement = conn.prepareStatement(selectQuery))
         {
             if (conn != null)
             {
@@ -25,7 +31,14 @@ public class Main {
                 System.out.println("Failed to make connection!");
             }
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+//            System.out.println("Inserting row 1");
+//            insertStatement1.execute();
+//
+//            System.out.println("Inserting row 2");
+//            insertStatement2.execute();
+
+            System.out.println("Getting data");
+            ResultSet resultSet = selectStatement.executeQuery();
 
             while (resultSet.next())
             {
@@ -37,15 +50,15 @@ public class Main {
 
                 p.setId(id);
                 p.setFirstname(firstname);
-                p.setFirstname(lastname);
+                p.setLastname(lastname);
 
-                System.out.println("ID:" + id + "Firstname:" + firstname + "Lastname:" + lastname );
+                System.out.println("ID: " + id + " Firstname: " + firstname + " Lastname: " + lastname );
                 players.add(p);
                 System.out.println("Player added.");
             }
 
-            System.out.println("Displaying players:");
-            players.forEach(p -> System.out.println(p));
+            System.out.println("Displaying players: ");
+            players.forEach(p -> System.out.println("ID: " + p.getId() + " Firstname: " + p.getFirstname() + " Lastname: " + p.getLastname() ));
 
         }
         catch (SQLException e)
