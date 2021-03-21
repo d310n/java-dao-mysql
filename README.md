@@ -1,0 +1,1 @@
+This project shows how to write java code to insert and retrieve data from a mysql database using the mysql-connector.
